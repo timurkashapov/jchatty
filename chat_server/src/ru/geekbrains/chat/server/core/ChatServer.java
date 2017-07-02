@@ -50,16 +50,6 @@ public class ChatServer {
         putLog("Сервер остановлен");
     } // stopListening
 
-//    /**
-//     * Установка слушателя событий сервера.
-//     * Set the "listener" for server events.
-//     *
-//     * @param eventListener listener.
-//     */
-//    public void setEventListener(ChatServerListener eventListener) {
-//        this.eventListener = eventListener;
-//    } // setServerListener
-
     /**
      * Журналирование событий сервера.
      * Logging of server events.
