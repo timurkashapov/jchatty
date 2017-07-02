@@ -30,8 +30,8 @@ import java.awt.event.ActionListener;
  *
  *
  *
- *
- * Created by shako on 29-Jun-17.
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
  */
 public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
 

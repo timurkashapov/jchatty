@@ -7,7 +7,8 @@ package ru.geekbrains.chat.server.core;
  * SERVER.
  * Basic server realisation for the chat working.
  *
- * Created by shako on 28-Jun-17.
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
  */
 public class ChatServer {
 

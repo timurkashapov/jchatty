@@ -1,7 +1,11 @@
 package ru.geekbrains.network;
 
 /**
- * Created by shako on 29-Jun-17.
+ *
+ *
+ *
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
  */
 public interface ServerSocketThreadListener {
 

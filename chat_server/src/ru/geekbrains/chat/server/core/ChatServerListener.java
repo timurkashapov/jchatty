@@ -4,7 +4,9 @@ package ru.geekbrains.chat.server.core;
  * "Слушатель" для обработки событий сервера.
  * Listener for server events.
  *
- * Created by shako on 28-Jun-17.
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
+ *
  */
 public interface ChatServerListener {
 
