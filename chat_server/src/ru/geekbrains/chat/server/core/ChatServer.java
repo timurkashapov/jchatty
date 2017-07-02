@@ -2,12 +2,13 @@ package ru.geekbrains.chat.server.core;
 
 /**
  * СЕРВЕР.
- * Базовая реализация сервера для работы чата.
+ * Базовая реализация чат-сервера для работы c клиентами чата.
  *
  * SERVER.
  * Basic server realisation for the chat working.
  *
- * Created by shako on 28-Jun-17.
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
  */
 public class ChatServer {
 
@@ -49,16 +50,6 @@ public class ChatServer {
     public void stopListening() {
         putLog("Сервер остановлен");
     } // stopListening
-
-//    /**
-//     * Установка слушателя событий сервера.
-//     * Set the "listener" for server events.
-//     *
-//     * @param eventListener listener.
-//     */
-//    public void setEventListener(ChatServerListener eventListener) {
-//        this.eventListener = eventListener;
-//    } // setServerListener
 
     /**
      * Журналирование событий сервера.

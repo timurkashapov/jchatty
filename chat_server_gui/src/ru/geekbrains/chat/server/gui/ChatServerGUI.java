@@ -25,7 +25,8 @@ import java.awt.event.ActionListener;
  * GRAPHIC USER INTERFACE OF SERVER.
  *
  *
- * Created by shako on 28-Jun-17.
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
  */
 public class ChatServerGUI extends JFrame implements ActionListener, ChatServerListener, Thread.UncaughtExceptionHandler {
 

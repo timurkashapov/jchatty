@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 /**
- * Created by shako on 29-Jun-17.
+ *
+ *
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
  */
 public class ServerSocketThread extends Thread {
 
