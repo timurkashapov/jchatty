@@ -351,18 +351,18 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
         Object srcOfEvent = e.getSource();
 
-        if () {
-
-        } else if() {
-
-        } else if() {
-
-        } else if () {
-
-        } else {
-
-            throw new RuntimeException();
-        } // if
+//        if () {
+//
+//        } else if() {
+//
+//        } else if() {
+//
+//        } else if () {
+//
+//        } else {
+//
+//            throw new RuntimeException();
+//        } // if
 
     } // actionPerformed()
 } // ClientGUI

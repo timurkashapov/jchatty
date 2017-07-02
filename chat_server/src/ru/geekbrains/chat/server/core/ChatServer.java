@@ -2,7 +2,7 @@ package ru.geekbrains.chat.server.core;
 
 /**
  * СЕРВЕР.
- * Базовая реализация сервера для работы чата.
+ * Базовая реализация чат-сервера для работы c клиентами чата.
  *
  * SERVER.
  * Basic server realisation for the chat working.
