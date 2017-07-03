@@ -20,6 +20,8 @@ import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  *
@@ -80,7 +82,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
      */
     // Главное окно
     private final String
-            WINDOW_TITLE = "Chatty client";
+            WINDOW_TITLE = "jchatty client";
     // Кнопки
     private final String
             BTN_SEND_MSG_TITLE        = "SEND",
@@ -265,6 +267,17 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 southPnl.setVisible(true);
                 northPnl.setVisible(true);
                 westPnl.setVisible(true);
+
+                try(Socket skt = new Socket("localhost", 8050)
+                ) {
+                    if(skt.isConnected()){
+                        System.out.printf("CLIENT CONNECTED");
+                    }
+
+                } catch(IOException ex) {
+
+                    throw new RuntimeException("Client Socket in GUI");
+                }
             }
         });
 

@@ -1,7 +1,7 @@
 package ru.geekbrains.chat.server.gui;
 
-import ru.geekbrains.chat.server.core.ChatServer;
-import ru.geekbrains.chat.server.core.ChatServerListener;
+import ru.geekbrains.chat.server.new_core.ChatServer;
+import ru.geekbrains.chat.server.new_core.ChatServerListener;
 
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -34,45 +34,50 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
      * X и Y коорддинаты окна.
      * Window X and Y coordinates.
      */
-    private final int X_WINDOW_POS = 800;
-    private final int Y_WINDOW_POS = 200;
+    private final int
+            X_WINDOW_POS = 800,
+            Y_WINDOW_POS = 200;
 
     /**
      * Ширина и высота окна.
      * Window width and height.
      */
-    private final int WIDTH = 600;
-    private final int HEIGHT = 200;
+    private final int
+            WIDTH = 600,
+            HEIGHT = 200;
 
     /**
      * Заголовок окна.
      * Title of window.
      */
-    private final String TITLE = "CHAT SERVER";
+    private final String TITLE = "jchatty server";
 
     /**
      * Панели для компонентов.
      * Panels for components.
      */
-    private final JPanel northPnl = new JPanel(new GridLayout(1, 3));
-    private final JPanel centerPnl = new JPanel();
+    private final JPanel
+            northPnl = new JPanel(new GridLayout(1, 3)),
+            centerPnl = new JPanel();
 
     /**
      * Заголовки кнопок управления.
      * Title of button controls.
      */
     /* CONTROLS TITLES */
-    private final String START_LISTENING = "Start listening";
-    private final String STOP_LISTENING = "Stop listening";
-    private final String DROP_ALL_CONNECTIONS = "Drop all connections";
+    private final String
+            START_LISTENING = "Start listening",
+            STOP_LISTENING = "Stop listening",
+            DROP_ALL_CONNECTIONS = "Drop all connections";
 
     /**
      * Кнопки управления.
      * Controls button.
      */
-    private final JButton btnStart = new JButton(START_LISTENING);
-    private final JButton btnStop = new JButton(STOP_LISTENING);
-    private final JButton btnDropAll = new JButton(DROP_ALL_CONNECTIONS);
+    private final JButton
+            btn_Start = new JButton(START_LISTENING),
+            btn_Stop = new JButton(STOP_LISTENING),
+            btn_DropAll = new JButton(DROP_ALL_CONNECTIONS);
 
     /**
      * Отображение текстовых служебных сообщений сервера.
@@ -85,6 +90,10 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
      * Server of chat.
      */
     private final ChatServer server = new ChatServer(this);
+
+    /** */
+    // private final int PORT = 8189;
+    private final int PORT = 8050;
 
     /** */
     private ChatServerGUI() {
@@ -110,18 +119,18 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
 
         // Добавление контента и обработка событий
         // --------------------------------------------------------
-        btnStart.setText(START_LISTENING);
-        btnStop.setText(STOP_LISTENING);
-        btnDropAll.setText(DROP_ALL_CONNECTIONS);
+        btn_Start.setText(START_LISTENING);
+        btn_Stop.setText(STOP_LISTENING);
+        btn_DropAll.setText(DROP_ALL_CONNECTIONS);
 
         // Слушатели событий для кнопок.
-        btnStart.addActionListener(this);
-        btnStop.addActionListener(this);
-        btnDropAll.addActionListener(this);
+        btn_Start.addActionListener(this);
+        btn_Stop.addActionListener(this);
+        btn_DropAll.addActionListener(this);
 
-        northPnl.add(btnStart);
-        northPnl.add(btnStop);
-        northPnl.add(btnDropAll);
+        northPnl.add(btn_Start);
+        northPnl.add(btn_Stop);
+        northPnl.add(btn_DropAll);
 
 
         log.setEditable(false);
@@ -165,16 +174,16 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
 
         Object srcEvent = e.getSource();
 
-        if(srcEvent == btnStart) {
-            server.startListening(8189);
+        if(srcEvent == btn_Start) {
+            server.startListening(PORT);
 
-            // Обработка "скользких исключений" через текущий класс.
-            throw new RuntimeException(" * Ой * ");
+            // Тренировка обработки "скользких исключений" через текущий класс.
+            // throw new RuntimeException(" * Ой * ");
 
-        } else if(srcEvent == btnStop) {
+        } else if(srcEvent == btn_Stop) {
 
             server.stopListening();
-        } else if(srcEvent == btnDropAll) {
+        } else if(srcEvent == btn_DropAll) {
 
             server.dropAllClients();
         } else {
@@ -187,8 +196,6 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
     } // actionPerformed()
 
     /**
-     *
-     *
      *
      * @param server текущий сервер.
      * @param msg сообщение от сервера.

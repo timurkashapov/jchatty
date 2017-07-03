@@ -1,4 +1,6 @@
-package ru.geekbrains.chat.server.core;
+package ru.geekbrains.chat.server.new_core;
+
+import ru.geekbrains.network.ServerSocketThread;
 
 /**
  * СЕРВЕР.
@@ -32,7 +34,16 @@ public class ChatServer {
      * @param port порт для подключения соединения с удалённым хостом.
      */
     public void startListening(int port) {
+
         putLog("Сервер запущен: " + port);
+
+        // ДОРАБОТКА
+        // -------------------------------------------------------
+
+        new ServerSocketThread("Заглушка", port);
+
+        // -------------------------------------------------------
+
     } // startListening
 
     /**
@@ -40,6 +51,7 @@ public class ChatServer {
      * Disconnect with all client hosts.
      */
     public void dropAllClients() {
+
         putLog("Соединение разорвано");
     } // dropAllClients
 
