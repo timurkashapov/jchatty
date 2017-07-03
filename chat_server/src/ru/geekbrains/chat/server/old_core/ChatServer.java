@@ -12,7 +12,11 @@ import java.util.Vector;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-/** */
+/**
+ *
+ * @author Aleksey Stepchenko.
+ * @author Timur Kashapov.
+ */
 public class ChatServer implements ServerSocketThreadListener, SocketThreadListener {
 
     //
@@ -46,7 +50,12 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             return;
         }
         serverSocketThread = new ServerSocketThread("ServerSocketThread", port);
-        securityManager.init();
+
+        /*
+        ???
+         */
+        // securityManager.init();
+
     } // startListening()
 
     /** */
@@ -65,7 +74,12 @@ public class ChatServer implements ServerSocketThreadListener, SocketThreadListe
             return;
         }
         serverSocketThread.interrupt();
-        securityManager.dispose();
+
+        /*
+        ???
+         */
+        // securityManager.dispose();
+
     } // stopListening()
 
      /*

@@ -20,8 +20,6 @@ import java.awt.BorderLayout;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.Socket;
 
 /**
  *
@@ -35,7 +33,7 @@ import java.net.Socket;
  * @author Aleksey Stepchenko.
  * @author Timur Kashapov.
  */
-public class ClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
+public class ChatClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
 
     /**
      * Сервер чата.
@@ -168,7 +166,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
             @Override
             public void run() {
 
-                new ClientGUI();
+                new ChatClientGUI();
             }
         });
     } // main()
@@ -178,7 +176,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
      * Инициализация окна.
      * Window initialization.
      */
-    private ClientGUI() {
+    private ChatClientGUI() {
 
          /*
         Заменяем стандартный обработчик исключений текущим классом
@@ -209,6 +207,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 
         chkbx_AlwaysOnTop.setEnabled(false);
         lbl_AdditionalInfo.setEnabled(false);
+        lbl_AdditionalInfo.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
         northPnl.add(chkbx_AlwaysOnTop);
         northPnl.add(lbl_AdditionalInfo);
@@ -234,7 +233,9 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         add(eastPnl, BorderLayout.EAST);
 
         txtfld_InternetAddress.setEditable(false);
+        txtfld_InternetAddress.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         txtfld_Port.setEditable(false);
+        txtfld_Port.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         txtfld_ChatArea.setEnabled(false);
         txtfld_ChatMembers.setEnabled(false);
 
@@ -268,16 +269,16 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
                 northPnl.setVisible(true);
                 westPnl.setVisible(true);
 
-                try(Socket skt = new Socket("localhost", 8050)
-                ) {
-                    if(skt.isConnected()){
-                        System.out.printf("CLIENT CONNECTED");
-                    }
-
-                } catch(IOException ex) {
-
-                    throw new RuntimeException("Client Socket in GUI");
-                }
+//                try(Socket skt = new Socket("localhost", 8050)
+//                ) {
+//                    if(skt.isConnected()){
+//                        System.out.printf("CLIENT CONNECTED");
+//                    }
+//
+//                } catch(IOException ex) {
+//
+//                    throw new RuntimeException("Client Socket in GUI");
+//                }
             }
         });
 
@@ -303,7 +304,7 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
         //
         //
 
-    } // ClientGUI()
+    } // ChatClientGUI()
 
     /**
      * ОБРАБОТКА "СКОЛЬЗСКИХ ИСКЛЮЧЕНИЙ".
@@ -378,4 +379,4 @@ public class ClientGUI extends JFrame implements ActionListener, Thread.Uncaught
 //        } // if
 
     } // actionPerformed()
-} // ClientGUI
+} // ChatClientGUI
