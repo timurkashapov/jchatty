@@ -1,17 +1,29 @@
 package ru.geekbrains.network;
 
+// JDK реализация сокета
 import java.net.Socket;
 import java.net.ServerSocket;
 
+// JDK исключения
 import java.io.IOException;
 
 /**
+ * JChatty project.
+ *
+ *
+ *
+ *
+ *
+ * Класс отвечает за создание потока для ожидания
+ * внешнего подключения по сокетному сетевому соединению
+ * к серверу.
  *
  * @author Aleksey Stepchenko.
  * @author Timur Kashapov.
  */
 public class ServerSocketThread extends Thread {
 
+    /** */
     private final int port;
 
     /** */
@@ -28,6 +40,7 @@ public class ServerSocketThread extends Thread {
 
         System.out.printf("ServerSocketThread запущен");
 
+        //--------------------------------------------------------
         try(ServerSocket srvSkt = new ServerSocket(port);
             Socket skt = srvSkt.accept()
         ){
@@ -42,6 +55,7 @@ public class ServerSocketThread extends Thread {
         } catch(IOException e) {
                     throw new RuntimeException();
         }
+        //--------------------------------------------------------
 
         System.out.printf("ServerSocketThread остановлен");
     } // run()

@@ -10,4 +10,4 @@ import ru.geekbrains.network.SocketThread;
 public class ChatSocketThread extends SocketThread{
 
 
-}
+} // ChatSocketThread

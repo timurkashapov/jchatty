@@ -1,6 +1,11 @@
 package ru.geekbrains.chat.server.new_core;
 
-import ru.geekbrains.network.ServerSocketThread;
+//
+import java.io.IOException;
+
+//
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  * СЕРВЕР.
@@ -13,6 +18,9 @@ import ru.geekbrains.network.ServerSocketThread;
  * @author Timur Kashapov.
  */
 public class ChatServer {
+
+    /** */
+    private Socket skt;
 
     /** */
     private final ChatServerListener eventListener;
@@ -35,12 +43,23 @@ public class ChatServer {
      */
     public void startListening(int port) {
 
+        try(
+                ServerSocket srvSkt = new ServerSocket(port);
+                Socket skt = srvSkt.accept()
+        ) {
+
+        } catch(IOException exception) {
+
+            exception.printStackTrace();
+        }
+
+
         putLog("Сервер запущен: " + port);
 
-        // ДОРАБОТКА
+        // НУЖНА ДОРАБОТКА
         // -------------------------------------------------------
 
-        new ServerSocketThread("Заглушка", port);
+        // new ServerSocketThread("Заглушка", port);
 
         // -------------------------------------------------------
 

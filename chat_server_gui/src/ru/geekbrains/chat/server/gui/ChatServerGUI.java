@@ -1,11 +1,16 @@
 package ru.geekbrains.chat.server.gui;
 
+//
+import ru.geekbrains.network.NetworkConstants;
+//
 import ru.geekbrains.chat.server.new_core.ChatServer;
 import ru.geekbrains.chat.server.new_core.ChatServerListener;
 
+//
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+// GUI компоненты.
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -13,17 +18,23 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
 
+// Компоновка и расположение gui компонентов
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 
+// Обработка событий
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * JChatty project.
+ *
+ *
+ *
+ *
+ *
  * ГРАФИЧЕСКИЙ ИНТЕРФЕЙС СЕРВЕРА.
- *
  * GRAPHIC USER INTERFACE OF SERVER.
- *
  *
  * @author Aleksey Stepchenko.
  * @author Timur Kashapov.
@@ -92,8 +103,7 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
     private final ChatServer server = new ChatServer(this);
 
     /** */
-    // private final int PORT = 8189;
-    private final int PORT = 8050;
+    private final int PORT = NetworkConstants.PORT;
 
     /** */
     private ChatServerGUI() {
@@ -147,6 +157,7 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
 
     } // ChatServerGUI()
 
+    // TEST /////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * ТЕСТИРОВАНИЕ.
      */
@@ -162,6 +173,7 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
             }
         } );
     } // main()
+    // TEST /////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Вызывается когда совершено действие.

@@ -1,5 +1,7 @@
 package ru.geekbrains.network;
 
+import java.net.Socket;
+
 /**
  *
  * @author Aleksey Stepchenko.
@@ -12,6 +14,13 @@ public class SocketThread extends Thread {
 
         start();
     } // SocketThread()
+
+    /** */
+    public SocketThread(String str, Socket skt){
+
+        // TO-DO
+
+    } // SocketThread(String str, Socket skt)
 
     /** */
     @Override

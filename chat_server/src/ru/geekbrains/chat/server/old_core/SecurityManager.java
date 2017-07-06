@@ -1,4 +1,4 @@
-package ru.geekbrains.chat.server.core;
+package ru.geekbrains.chat.server.old_core;
 
 public interface SecurityManager {
 

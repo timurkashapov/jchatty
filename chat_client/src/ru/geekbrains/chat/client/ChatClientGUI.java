@@ -1,7 +1,21 @@
 package ru.geekbrains.chat.client;
 
+// Зависимость от модуля network.
+// * получение константных значений для подключения к сети и чату.
+import ru.geekbrains.network.NetworkConstants;
+
+import ru.geekbrains.network.SocketThread;
+
+//
+import java.net.Socket;
+
+//
+import java.io.IOException;
+
+//
 import javax.swing.SwingUtilities;
 
+// GUI компоненты
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,29 +25,37 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JOptionPane;
+import javax.swing.JComponent;
 
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-
+//
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 
+//
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
+// Обработка событий
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
+ * JChatty project.
  *
- * CHATTY CLIENT.
+ *
+ *
+ *
+ *
+ *
  * ГРАФИЧЕСКИЙ ИНТЕРФЕЙС КЛИЕНТА ЧАТА.
- *
  * GRAPHIC USER INTERFACE OF CHAT CLIENT.
- *
- *
  *
  * @author Aleksey Stepchenko.
  * @author Timur Kashapov.
  */
-public class ChatClientGUI extends JFrame implements ActionListener, Thread.UncaughtExceptionHandler {
+public class ChatClientGUI extends JFrame implements ActionListener, KeyListener, Thread.UncaughtExceptionHandler {
 
     /**
      * Сервер чата.
@@ -46,17 +68,19 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
      * Data for network connection.
      */
     private final String
-            IP   = "89.222.249.131",
-            PORT = "8189";
+            IP   = NetworkConstants.IP;
+
+    private final int
+            PORT = NetworkConstants.PORT;
 
     /**
      * Пользовательские данные.
      * User data.
      */
     private final String
-            USER_LOGIN = "tkashapov",
-            USER_PASS  = "159357",
-            USER_NICK  = "shako";
+            USER_LOGIN = NetworkConstants.USER_LOGIN,
+            USER_PASS  = NetworkConstants.USER_PASS,
+            USER_NICK  = NetworkConstants.USER_NICK;
 
     /**
      * X и Y коорддинаты окна.
@@ -141,7 +165,7 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
      */
     private final JTextField
             txtfld_InternetAddress = new JTextField(IP),
-            txtfld_Port            = new JTextField(PORT),
+            txtfld_Port            = new JTextField( String.valueOf(PORT) ),
             txtfld_Login           = new JTextField(USER_LOGIN),
             psfld_Password         = new JPasswordField(USER_PASS);
 
@@ -150,6 +174,9 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
      * Viewer the server log text messages.
      */
 //    private final JTextArea log = new JTextArea();
+
+    /** */
+    SocketThread sktThrd;
 
 
     // TEST /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +187,7 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
      */
     public static void main(String[] args) {
 
-        // Запускаем конструктор в потоке AWT ?
+        // Запускаем конструктор в потоке AWT / EDT ?
         //
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -205,9 +232,9 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
         // NORTH
         this.add(northPnl, BorderLayout.NORTH);
 
-        chkbx_AlwaysOnTop.setEnabled(false);
+        chkbx_AlwaysOnTop.setEnabled(true);
         lbl_AdditionalInfo.setEnabled(false);
-        lbl_AdditionalInfo.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        lbl_AdditionalInfo.setHorizontalAlignment(SwingConstants.CENTER);
 
         northPnl.add(chkbx_AlwaysOnTop);
         northPnl.add(lbl_AdditionalInfo);
@@ -239,6 +266,8 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
         txtfld_ChatArea.setEnabled(false);
         txtfld_ChatMembers.setEnabled(false);
 
+        btn_Disconnect.setEnabled(false);
+
         eastPnl.add(txtfld_InternetAddress);
         eastPnl.add(txtfld_Port);
         eastPnl.add(new JLabel());
@@ -259,39 +288,12 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
         // --------------------------------------------------------
         // Слушатели кнопок
         //
-
-        // btn_Login.addActionListener(this);
-
-        btn_Login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                southPnl.setVisible(true);
-                northPnl.setVisible(true);
-                westPnl.setVisible(true);
-
-//                try(Socket skt = new Socket("localhost", 8050)
-//                ) {
-//                    if(skt.isConnected()){
-//                        System.out.printf("CLIENT CONNECTED");
-//                    }
-//
-//                } catch(IOException ex) {
-//
-//                    throw new RuntimeException("Client Socket in GUI");
-//                }
-            }
-        });
-
+        btn_Login.addActionListener(this);
         btn_Disconnect.addActionListener(this);
+        btn_SendMsg.addActionListener(this);
+        chkbx_AlwaysOnTop.addActionListener(this);
 
-        btn_Disconnect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                southPnl.setVisible(false);
-                northPnl.setVisible(false);
-                westPnl.setVisible(false);
-            }
-        });
+        btn_SendMsg.addKeyListener(this);
         // --------------------------------------------------------
 
         setVisible(true);
@@ -363,20 +365,117 @@ public class ChatClientGUI extends JFrame implements ActionListener, Thread.Unca
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        Object srcOfEvent = e.getSource();
+        JComponent srcOfEvent = (JComponent) e.getSource();
 
-//        if () {
-//
-//        } else if() {
-//
-//        } else if() {
-//
-//        } else if () {
-//
-//        } else {
-//
-//            throw new RuntimeException();
-//        } // if
+        if (srcOfEvent == btn_Login) {
+
+            southPnl.setVisible(true);
+            northPnl.setVisible(true);
+            westPnl.setVisible(true);
+
+            btn_Disconnect.setEnabled(true);
+
+            txtfld_ChatArea.setHorizontalAlignment(SwingConstants.LEFT);
+
+            chkbx_AlwaysOnTop.setEnabled(true);
+            txtfld_ChatArea.setEnabled(true);
+
+            sendMsg("login");
+
+            //
+            sktThrd = new SocketThread();
+
+            try {
+
+                connect();
+            } catch(IOException exception) {
+
+                exception.printStackTrace();
+            }
+
+        } else if(srcOfEvent == btn_Disconnect) {
+
+            southPnl.setVisible(false);
+            northPnl.setVisible(false);
+            westPnl.setVisible(false);
+
+            txtfld_ChatArea.setText("");
+            txtfld_ChatArea.setEnabled(false);
+
+            sendMsg("disconnect");
+
+            disconnect();
+
+        } else if(srcOfEvent == btn_SendMsg) {
+
+            sendMsg("send message ...");
+
+        } else if (srcOfEvent == chkbx_AlwaysOnTop) {
+
+            setAlwaysOnTop(chkbx_AlwaysOnTop.isSelected());
+            sendMsg("always on top");
+        } else {
+
+            throw new RuntimeException();
+        } // if
 
     } // actionPerformed()
+
+    /** */
+    public void connect() throws IOException {
+
+        Socket socket = new Socket(IP, PORT);
+
+    } // connect()
+
+    /** */
+    public void disconnect() {
+
+    } // disconnect()
+
+    /** */
+    public void sendMsg(String msg) {
+        System.out.printf("\n%s", msg);
+    }
+
+    /**
+     * Invoked when a key has been typed.
+     * See the class description for {@link KeyEvent} for a definition of
+     * a key typed event.
+     *
+     * @param e event.
+     */
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    /**
+     * Invoked when a key has been pressed.
+     * See the class description for {@link KeyEvent} for a definition of
+     * a key pressed event.
+     *
+     * @param e event.
+     */
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        Object component = e.getSource();
+
+        if(component == btn_SendMsg) {
+
+        }
+    }
+
+    /**
+     * Invoked when a key has been released.
+     * See the class description for {@link KeyEvent} for a definition of
+     * a key released event.
+     *
+     * @param e event.
+     */
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 } // ChatClientGUI

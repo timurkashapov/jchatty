@@ -11,7 +11,7 @@ import java.sql.Statement;
  * @author Aleksey Stepchenko.
  * @author Timur Kashapov.
  */
-public class SQLSecurityManager implements SecurityManager {
+public class SQLSecurityManager implements ru.geekbrains.chat.server.old_core.SecurityManager {
 
     /** */
     private Connection connection;
