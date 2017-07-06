@@ -8,6 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * JChatty project.
+ *
  * СЕРВЕР.
  * Базовая реализация чат-сервера для работы c клиентами чата.
  *
