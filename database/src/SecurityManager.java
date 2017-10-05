@@ -4,7 +4,11 @@
  * @author Aleksey Stepchenko.
  * @author Timur Kashapov.
  */
-public interface AuthorizeManager {
+interface SecurityManager {
 
+    /**
+     * Существует такой ник или нет?
+     */
+    void getNick(String login, String password);
 
-} // AuthorizeManager
+} // SecurityManager

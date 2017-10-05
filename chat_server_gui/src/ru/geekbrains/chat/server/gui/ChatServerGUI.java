@@ -2,6 +2,7 @@ package ru.geekbrains.chat.server.gui;
 
 //
 import ru.geekbrains.network.NetworkConstants;
+
 //
 import ru.geekbrains.chat.server.new_core.ChatServer;
 import ru.geekbrains.chat.server.new_core.ChatServerListener;
@@ -92,9 +93,9 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
 
     /**
      * Отображение текстовых служебных сообщений сервера.
-     * Viewer the server log text messages.
+     * Viewer the server txtarea_Log text messages.
      */
-    private final JTextArea log = new JTextArea();
+    private final JTextArea txtarea_Log = new JTextArea();
 
     /**
      * Сервер чата.
@@ -143,8 +144,8 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
         northPnl.add(btn_DropAll);
 
 
-        log.setEditable(false);
-        JScrollPane scrollLog = new JScrollPane(log);
+        txtarea_Log.setEditable(false);
+        JScrollPane scrollLog = new JScrollPane(txtarea_Log);
 
         add(scrollLog, BorderLayout.CENTER);
         add(northPnl, BorderLayout.NORTH);
@@ -187,6 +188,7 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
         Object srcEvent = e.getSource();
 
         if(srcEvent == btn_Start) {
+
             server.startListening(PORT);
 
             // Тренировка обработки "скользких исключений" через текущий класс.
@@ -202,6 +204,7 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
 
             // Надежность +
             //
+            JOptionPane.showMessageDialog(this, srcEvent, "Unknown event" + srcEvent, JOptionPane.ERROR_MESSAGE);
             throw new RuntimeException("Unknown source event = " + srcEvent);
         }
 
@@ -223,11 +226,11 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
             public void run() {
 
                 // +
-                // Append log message.
-                log.append(msg + "\n");
+                // Append txtarea_Log message.
+                txtarea_Log.append(msg + "\n");
 
                 // Auto scroll to end of the text area.
-                log.setCaretPosition(log.getDocument().getLength());
+                txtarea_Log.setCaretPosition(txtarea_Log.getDocument().getLength());
             }
         });
     } // onChatServerLog
@@ -249,7 +252,7 @@ public class ChatServerGUI extends JFrame implements ActionListener, ChatServerL
 
         // Лонируем в консоль и в gui.
         System.out.println("Поймали");
-        log.append("Поймали " + e + " ");
+        txtarea_Log.append("Поймали " + e + " ");
 
         // Логируем стек исключений в консоль.
         e.printStackTrace();
